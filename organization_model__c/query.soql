@@ -1,0 +1,12 @@
+SELECT AdmiClusterLayer__c,
+        Area_kort__c,
+        Attribute__c,
+        Enddate__c,
+        Name,
+        Name_short__c,
+        OE_code__c,
+        Push_Notification_Group_Rem_Conf_Sch__c,
+        RecordTypeId,
+        Sap_id__c,
+        Startdate__c
+FROM Organization_model__c
