@@ -14,7 +14,7 @@ def createjob():
     netloc = parse.netloc
     
     url = scheme + '://' + netloc + '/services/async/50.0/job'
-    data = open('./'+path+'/create-job.json', 'r').read()
+    data = open('./'+path+'/createExportJob.json', 'r').read()
 
     headers = {"Content-Type":"application/json;charset=UTF-8","X-SFDC-Session":localSessionInfo['sessionId']} 
 
