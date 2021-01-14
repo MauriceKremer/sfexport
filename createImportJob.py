@@ -27,17 +27,17 @@ def createBatches():
     reader = open('./'+path+'/exportresult.csv', 'r')
     header = reader.readline()
 
-    csv = header + '\n'
+    csv = header 
     i = 0
     while(True):
         line = reader.readline()
         i+=1
         if line: # line contains data
-            csv += line + '\n'
+            csv += line 
         if not line or i > 10000: #batch limit is 10k records
             adddatabatch(csv)
             if line: # file has more lines
-                csv = header + '\n'
+                csv = header 
                 i=0
             else:
                 break # end of file reached
@@ -54,7 +54,7 @@ def adddatabatch(csv):
 
     global batchid
     batchid = root.find('.//http:id',ns).text
-    print(f'  - Created data import batch : {batchid}')
+    print(f'   - Created data import batch : {batchid}')
 
 def closeJob():
     url = baseUrl + '/services/async/50.0/job/' + jobid 
@@ -63,6 +63,21 @@ def closeJob():
     headers = {"Content-Type":"application/xml;charset=UTF-8","X-SFDC-Session":localSessionInfo['sessionId']} 
     requests.post(url,data=closejob,headers=headers)
     print('  - Job closed.')
+
+def monitorJob():
+    url = baseUrl + '/services/async/50.0/job/' + jobid 
+    headers = {"Content-Type":"application/json;charset=UTF-8","X-SFDC-Session":localSessionInfo['sessionId']} 
+    
+    while (True):
+        response = requests.get(url,headers=headers)
+        decoded = response.json()
+        completed = decoded['numberBatchesCompleted']
+        total = decoded['numberBatchesTotal']
+        print(f'   - {completed} of {total} batches completed.')
+        time.sleep(5)
+        if (completed == total):
+            break
+
 
 def importdata(sessionInfo,folder):    
     global localSessionInfo
@@ -81,5 +96,6 @@ def importdata(sessionInfo,folder):
     createjob()
     createBatches()
     closeJob()
+    monitorJob()
     #waitForJobToComplete()
     #retrieveResults()

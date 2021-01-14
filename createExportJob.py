@@ -56,12 +56,15 @@ def waitForJobToComplete():
         decoded = response.content.decode('utf-8')
         root = ElementTree.fromstring(decoded)
         status = root.find('.//http:state',ns).text
+        if (status=='Failed'):
+            ready = True
+            print('\u001b[31m   - Batch failed! \033[0m')
         if (status=='Completed'):
             ready = True
             print('   - Batch ready.')
         else:
-            print('   - Batch not ready yet. Waiting 5 seconds. [' + status + ']')
-            time.sleep(5)
+            print('   - Batch not ready yet. Waiting 2 seconds. [' + status + ']')
+            time.sleep(2)
     
 def retrieveResults():
     url = baseUrl + '/services/async/50.0/job/' + jobid + '/batch/'+ batchid + '/result'

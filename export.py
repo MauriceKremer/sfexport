@@ -3,7 +3,6 @@ import createExportJob
 import os
 
 loginresult = loginsf.login('login-export.xml')
-print (f"  - Current session id: {loginresult['sessionId']}")
 print (f"  - Current session url: {loginresult['sessionUrl']}")
 
 dirFiles = os.listdir('.') #list of directory files
@@ -12,5 +11,5 @@ sorted(dirFiles) #sort numerically in ascending order
 
 for name in dirFiles:
     if (os.path.isdir(name) and name[0].isdigit()):
-        print ('Reading directory ' + name)
+        print ('\033[96m' + 'Reading directory ' + '\033[1m' + name + '\033[0m')
         createExportJob.exportdata(loginresult,name)

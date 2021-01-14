@@ -3,10 +3,10 @@ import createImportJob
 import os
 
 loginresult = loginsf.login('login-import.xml')
-print (f"  - Current session id: {loginresult['sessionId']}")
 print (f"  - Current session url: {loginresult['sessionUrl']}")
 
-createImportJob.importdata(loginresult,'02-organization_model__c')
+createImportJob.importdata(loginresult,'01-account')
+#createImportJob.importdata(loginresult,'02-organization_model__c')
 
 # dirFiles = os.listdir('.') #list of directory files
 # dirFiles.sort() #good initial sort but doesnt sort numerically very well
@@ -14,5 +14,5 @@ createImportJob.importdata(loginresult,'02-organization_model__c')
 
 # for name in dirFiles:
 #     if (os.path.isdir(name) and name[0].isdigit()):
-#         print ('Reading directory ' + name)
+#         print ('\033[96m' + 'Reading directory ' + '\033[1m' + name + '\033[0m')
 #         createImportJob.importdata(loginresult,name)
