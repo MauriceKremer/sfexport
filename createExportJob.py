@@ -7,13 +7,10 @@ localSessionInfo = {}
 jobid = ''
 batchid = ''
 path = ''
+baseUrl = ''
 
 def createjob():
-    parse = urlparse(localSessionInfo['sessionUrl'])
-    scheme = parse.scheme
-    netloc = parse.netloc
-    
-    url = scheme + '://' + netloc + '/services/async/50.0/job'
+    url = baseUrl + '/services/async/50.0/job'
     data = open('./'+path+'/createExportJob.json', 'r').read()
 
     headers = {"Content-Type":"application/json;charset=UTF-8","X-SFDC-Session":localSessionInfo['sessionId']} 
@@ -25,10 +22,7 @@ def createjob():
     print(f'  - Created data load job : {jobid}')
 
 def addquery():
-    parse = urlparse(localSessionInfo['sessionUrl'])
-    scheme = parse.scheme
-    netloc = parse.netloc
-    url = scheme + '://' + netloc + '/services/async/50.0/job/' + jobid + '/batch'
+    url = baseUrl + '/services/async/50.0/job/' + jobid + '/batch'
     query = open('./'+path+'/query.soql', 'r').read()
 
     headers = {"Content-Type":"text/csv;charset=UTF-8","X-SFDC-Session":localSessionInfo['sessionId']} 
@@ -43,10 +37,7 @@ def addquery():
     print(f'  - Created data load batch : {batchid}')
 
 def closeJob():
-    parse = urlparse(localSessionInfo['sessionUrl'])
-    scheme = parse.scheme
-    netloc = parse.netloc
-    url = scheme + '://' + netloc + '/services/async/50.0/job/' + jobid 
+    url = baseUrl + '/services/async/50.0/job/' + jobid 
     closejob = '<?xml version="1.0" encoding="UTF-8"?><jobInfo xmlns="http://www.force.com/2009/06/asyncapi/dataload"><state>Closed</state></jobInfo>'
 
     headers = {"Content-Type":"application/xml;charset=UTF-8","X-SFDC-Session":localSessionInfo['sessionId']} 
@@ -54,11 +45,7 @@ def closeJob():
     print('  - Job closed.')
 
 def waitForJobToComplete():
-    parse = urlparse(localSessionInfo['sessionUrl'])
-    scheme = parse.scheme
-    netloc = parse.netloc
-    
-    url = scheme + '://' + netloc + '/services/async/50.0/job/' + jobid + '/batch/'+ batchid
+    url = baseUrl + '/services/async/50.0/job/' + jobid + '/batch/'+ batchid
 
     headers = {"Content-Type":"application/xml;charset=UTF-8","X-SFDC-Session":localSessionInfo['sessionId']} 
     ns = {'http': 'http://www.force.com/2009/06/asyncapi/dataload'}
@@ -78,11 +65,7 @@ def waitForJobToComplete():
     
 
 def retrieveResults():
-    parse = urlparse(localSessionInfo['sessionUrl'])
-    scheme = parse.scheme
-    netloc = parse.netloc
-    
-    url = scheme + '://' + netloc + '/services/async/50.0/job/' + jobid + '/batch/'+ batchid + '/result'
+    url = baseUrl + '/services/async/50.0/job/' + jobid + '/batch/'+ batchid + '/result'
 
     headers = {"Content-Type":"application/xml;charset=UTF-8","X-SFDC-Session":localSessionInfo['sessionId']} 
     ns = {'http': 'http://www.force.com/2009/06/asyncapi/dataload'}
@@ -105,6 +88,13 @@ def exportdata(sessionInfo,folder):
 
     global path
     path = folder
+
+    parse = urlparse(localSessionInfo['sessionUrl'])
+    scheme = parse.scheme
+    netloc = parse.netloc
+
+    global baseUrl
+    baseUrl = scheme + '://' + netloc
 
     createjob()
     addquery()
