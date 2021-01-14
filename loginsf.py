@@ -2,10 +2,10 @@ import requests
 import fileinput
 from xml.etree import ElementTree
 
-def login():
+def login(loginFile):
 
     url  = "https://test.salesforce.com/services/Soap/u/50.0"
-    data = open('login.xml', 'r').read()
+    data = open(loginFile, 'r').read()
     headers = {"Content-Type":"text/xml;charset=UTF-8","SOAPAction":"login"}
     ns = {'urn': 'urn:partner.soap.sforce.com'}
 

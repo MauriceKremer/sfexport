@@ -2,7 +2,7 @@ import loginsf
 import createExportJob
 import os
 
-loginresult = loginsf.login()
+loginresult = loginsf.login('login-export.xml')
 print (f"  - Current session id: {loginresult['sessionId']}")
 print (f"  - Current session url: {loginresult['sessionUrl']}")
 

@@ -63,7 +63,6 @@ def waitForJobToComplete():
             print('   - Batch not ready yet. Waiting 5 seconds.')
             time.sleep(5)
     
-
 def retrieveResults():
     url = baseUrl + '/services/async/50.0/job/' + jobid + '/batch/'+ batchid + '/result'
 
@@ -80,7 +79,6 @@ def retrieveResults():
         response = requests.get(url,headers=headers)
         file.write(response.content)
         print('  - Data saved.')
-
 
 def exportdata(sessionInfo,folder):    
     global localSessionInfo
@@ -101,7 +99,3 @@ def exportdata(sessionInfo,folder):
     closeJob()
     waitForJobToComplete()
     retrieveResults()
-
-
-
-
