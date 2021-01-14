@@ -42,6 +42,17 @@ def addquery():
     batchid = root.find('.//http:id',ns).text
     print(f'  - Created data load batch : {batchid}')
 
+def closeJob():
+    parse = urlparse(localSessionInfo['sessionUrl'])
+    scheme = parse.scheme
+    netloc = parse.netloc
+    url = scheme + '://' + netloc + '/services/async/50.0/job/' + jobid 
+    closejob = '<?xml version="1.0" encoding="UTF-8"?><jobInfo xmlns="http://www.force.com/2009/06/asyncapi/dataload"><state>Closed</state></jobInfo>'
+
+    headers = {"Content-Type":"application/xml;charset=UTF-8","X-SFDC-Session":localSessionInfo['sessionId']} 
+    response = requests.post(url,data=closejob,headers=headers)
+    print('  - Job closed.')
+
 def waitForJobToComplete():
     parse = urlparse(localSessionInfo['sessionUrl'])
     scheme = parse.scheme
@@ -97,6 +108,7 @@ def exportdata(sessionInfo,folder):
 
     createjob()
     addquery()
+    closeJob()
     waitForJobToComplete()
     retrieveResults()
 

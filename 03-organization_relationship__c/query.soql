@@ -1,0 +1,5 @@
+SELECT  Child_OM__r.Sap_Id__c,
+        Parent_OM__r.Sap_Id__c,
+        Start_date__c,
+        End_date__c
+FROM Organization_Relationship__c

@@ -1,0 +1,11 @@
+SELECT Name, 
+Sap_Id__c,
+AccountNumber,
+Contract_Type__c,
+Datum_uit_dienst__c,
+Function_code__c,
+Gender__c,
+Startdate_contract__c,
+Middle_name__c,
+Initials__c
+FROM Account
