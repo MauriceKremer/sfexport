@@ -9,3 +9,4 @@ Startdate_contract__c,
 Middle_name__c,
 Initials__c
 FROM Account
+WHERE Sap_Id__c != NULL

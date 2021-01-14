@@ -1,5 +1,4 @@
 SELECT AdmiClusterLayer__c,
-        Area_kort__c,
         Attribute__c,
         Enddate__c,
         Name,
@@ -10,3 +9,4 @@ SELECT AdmiClusterLayer__c,
         Sap_id__c,
         Startdate__c
 FROM Organization_model__c
+WHERE Sap_Id__c != null

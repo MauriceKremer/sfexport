@@ -1,0 +1,6 @@
+{
+    "operation" : "upsert",
+    "object" : "Account",
+    "contentType" : "CSV",
+    "externalIdFieldName": "Sap_Id__c"
+  }

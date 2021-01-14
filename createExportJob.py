@@ -19,7 +19,7 @@ def createjob():
     decoded = response.json()
     global jobid
     jobid = decoded["id"]
-    print(f'  - Created data load job : {jobid}')
+    print(f'  - Created data export job : {jobid}')
 
 def addquery():
     url = baseUrl + '/services/async/50.0/job/' + jobid + '/batch'
@@ -34,14 +34,14 @@ def addquery():
 
     global batchid
     batchid = root.find('.//http:id',ns).text
-    print(f'  - Created data load batch : {batchid}')
+    print(f'  - Created data export batch : {batchid}')
 
 def closeJob():
     url = baseUrl + '/services/async/50.0/job/' + jobid 
     closejob = '<?xml version="1.0" encoding="UTF-8"?><jobInfo xmlns="http://www.force.com/2009/06/asyncapi/dataload"><state>Closed</state></jobInfo>'
 
     headers = {"Content-Type":"application/xml;charset=UTF-8","X-SFDC-Session":localSessionInfo['sessionId']} 
-    response = requests.post(url,data=closejob,headers=headers)
+    requests.post(url,data=closejob,headers=headers)
     print('  - Job closed.')
 
 def waitForJobToComplete():
@@ -60,7 +60,7 @@ def waitForJobToComplete():
             ready = True
             print('   - Batch ready.')
         else:
-            print('   - Batch not ready yet. Waiting 5 seconds.')
+            print('   - Batch not ready yet. Waiting 5 seconds. [' + status + ']')
             time.sleep(5)
     
 def retrieveResults():
@@ -75,7 +75,7 @@ def retrieveResults():
     resultid = root.find('.//http:result',ns).text
     url += '/'+resultid
 
-    with open('./' + path + '/result.csv', "wb") as file:
+    with open('./' + path + '/exportresult.csv', "wb") as file:
         response = requests.get(url,headers=headers)
         file.write(response.content)
         print('  - Data saved.')
