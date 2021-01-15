@@ -99,7 +99,7 @@ def importdata(sessionInfo,folder):
     dirFiles = os.listdir(path)
     for name in dirFiles:
         if (os.path.isfile(path + '/' + name) and name.split('.')[1] == 'csv'):
-            print ('\u001b[42;1m' + 'Reading file ' + path + '/' + name + '\033[0m')
+            print ('\033[94m' + 'Reading file ' + path + '/' + name + '\033[0m')
             createBatches(path + '/' + name)
 
     closeJob()
