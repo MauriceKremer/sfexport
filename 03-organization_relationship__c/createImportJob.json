@@ -1,5 +1,6 @@
 {
-    "operation" : "insert",
+    "operation" : "upsert",
     "object" : "Organization_Relationship__c",
-    "contentType" : "CSV"
+    "contentType" : "CSV",
+    "externalIdFieldName": "OM_relationship_id__c"
   }
