@@ -11,5 +11,5 @@ sorted(dirFiles) #sort numerically in ascending order
 
 for name in dirFiles:
     if (os.path.isdir(name) and name[0].isdigit()):
-        print ('\033[96m' + 'Reading directory ' + '\033[1m' + name + '\033[0m')
+        print ('\u001b[44;1m' + 'Reading directory ' + '\033[1m' + name + '\033[0m')
         createExportJob.exportdata(loginresult,name)

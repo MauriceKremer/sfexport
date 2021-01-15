@@ -2,6 +2,7 @@ from urllib.parse import urlparse
 import requests
 from xml.etree import ElementTree
 import time
+import os
 
 localSessionInfo = {}
 jobid = ''
@@ -23,8 +24,8 @@ def createjob():
     print(f'  - Created data import job : {jobid}')
 
 
-def createBatches():
-    reader = open('./'+path+'/exportresult.csv', 'r')
+def createBatches(file):
+    reader = open(file, 'r')
     header = reader.readline()
 
     csv = header 
@@ -94,7 +95,13 @@ def importdata(sessionInfo,folder):
     baseUrl = scheme + '://' + netloc
 
     createjob()
-    createBatches()
+    
+    dirFiles = os.listdir(path)
+    for name in dirFiles:
+        if (os.path.isfile(path + '/' + name) and name.split('.')[1] == 'csv'):
+            print ('\u001b[42;1m' + 'Reading file ' + path + '/' + name + '\033[0m')
+            createBatches(path + '/' + name)
+
     closeJob()
     monitorJob()
     #waitForJobToComplete()
