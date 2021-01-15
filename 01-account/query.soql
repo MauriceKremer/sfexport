@@ -13,4 +13,4 @@ WHERE Sap_Id__c != NULL
 AND Startdate_contract__c < TODAY
 AND (Datum_uit_dienst__c = NULL OR Datum_uit_dienst__c > TODAY)
 ORDER BY Name
-LIMIT 20000
+LIMIT 20

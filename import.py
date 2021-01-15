@@ -14,5 +14,5 @@ sorted(dirFiles) #sort numerically in ascending order
 
 for name in dirFiles:
     if (os.path.isdir(name) and name[0].isdigit()):
-        print ('\u001b[44;1m' + 'Reading directory ' + '\033[1m' + name + '\033[0m')
+        print ('\u001b[44;1m' + 'Reading directory ' + '\033[1m' +  name.rjust(80)  + '\033[0m')
         createImportJob.importdata(loginresult,name)
