@@ -69,14 +69,17 @@ def monitorJob():
     url = baseUrl + '/services/async/50.0/job/' + jobid 
     headers = {"Content-Type":"application/json;charset=UTF-8","X-SFDC-Session":localSessionInfo['sessionId']} 
     
+    waited = 0
     while (True):
         response = requests.get(url,headers=headers)
         decoded = response.json()
         completed = decoded['numberBatchesCompleted']
         total = decoded['numberBatchesTotal']
-        print(f'   - {completed} of {total} batches completed.')
-        time.sleep(5)
+        print(f'   - {completed} of {total} batches completed. Waited {waited} seconds.', end = '\r')
+        time.sleep(2)
+        waited += 2
         if (completed == total):
+            print('\n   - Import completed.')
             break
 
 

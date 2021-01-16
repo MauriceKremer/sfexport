@@ -51,6 +51,7 @@ def waitForJobToComplete():
     ns = {'http': 'http://www.force.com/2009/06/asyncapi/dataload'}
 
     ready = False
+    waited = 0
     while (not ready):
         response = requests.get(url,headers=headers)
         decoded = response.content.decode('utf-8')
@@ -61,9 +62,10 @@ def waitForJobToComplete():
             print('\u001b[31m   - Batch failed! \033[0m')
         if (status=='Completed'):
             ready = True
-            print('   - Batch ready.')
+            print('\n   - Batch ready.')
         else:
-            print('   - Batch not ready yet. Waiting 2 seconds. [' + status + ']')
+            print(f'   - Batch not ready yet. Waited {waited} seconds. [' + status + ']', end='\r')
+            waited += 2
             time.sleep(2)
     
 def retrieveResults():
