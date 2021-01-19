@@ -1,0 +1,16 @@
+SELECT  CloseAfterCreation__c,
+Category__c,
+Column__c,
+Communication_Channel__c,
+Escalation_Time__c,
+External_key__c,
+Handler__c,
+IsRegion__c,
+MijnWerk_Photo_Required__c,
+MijnWerk_Scenario__c,
+PAS__c,
+PreSelectedHandlerFilters__c,
+Record_Type__c,
+Subject__c
+FROM Case_Scenario__c
+WHERE External_key__c != null

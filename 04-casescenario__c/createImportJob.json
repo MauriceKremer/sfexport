@@ -1,0 +1,6 @@
+{
+    "operation" : "upsert",
+    "object" : "Case_Scenario__c",
+    "contentType" : "CSV",
+    "externalIdFieldName": "External_key__c"
+  }

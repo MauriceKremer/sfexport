@@ -1,0 +1,5 @@
+{
+    "operation" : "query",
+    "object" : "Case_Scenario__c",
+    "contentType" : "CSV"
+  }
